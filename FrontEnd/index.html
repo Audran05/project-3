@@ -10,23 +10,37 @@
 	<meta name="description" content="">
 	<link rel="stylesheet" href="./assets/style.css">
 	<link rel="import" href="connexion.html">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+	<script src="https://kit.fontawesome.com/8f13b09377.js" crossorigin="anonymous"></script>
 </head>
 <body>
 <header>
-	<h1>Sophie Bluel <span>Architecte d'inteérieur</span></h1>
+	<div class="login-navbar" id="login-nav">
+		<img src="assets/icons/pen-to-square-regular.svg" alt=""><p>Mode édition</p>
+		<button class="changes-button">publier les changements</button>
+	</div>
+	<div class="header">
+		<h1>Sophie Bluel <span>Architecte d'inteérieur</span></h1>
 	<nav>
 		<ul>
 			<li>projets</li>
 			<li>contact</li>
-			<li> <a href="http://127.0.0.1:5500/FrontEnd/connexion.html"></a> login</li>
+			<li id="logout"> <a href="http://127.0.0.1:5500/FrontEnd/connexion.html" target="_blank" ></a>login </li>
 			<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
 		</ul>
 	</nav>
+	</div>
+	
 </header>
 <main>
 	<section id="introduction">
 		<figure>
 			<img src="./assets/images/sophie-bluel.png" alt="">
+			<div class="align-under">
+				<i class="fas fa-edit"></i>
+				<p id="login-p">Modifier</p>
+			</div>
+			
 		</figure>
 		<article>
 			<h2>Designer d'espace</h2>
@@ -36,56 +50,20 @@
 		</article>
 	</section>
 	<section id="portfolio">
-		<h2>Mes Projets</h2>
+		<div class="projects-login">
+			<h2>Mes Projets</h2>
+			<div class="align-title">
+				<i class="fas fa-edit"></i>
+				<button id="myBtn" class="modalbutton">modifier</button>
+			</div>
+			
+		</div>
+		
 		<div class="filters">
 			<button class="all">Tous</button>
 		</div>
 		<div class="gallery">
 			
-			<!-- <figure>
-				<img src="assets/images/abajour-tahina.png" alt="Abajour Tahina">
-				<figcaption>Abajour Tahina</figcaption>
-			</figure>
-			<figure>
-				<img src="assets/images/appartement-paris-v.png" alt="Appartement Paris V">
-				<figcaption>Appartement Paris V</figcaption>
-			</figure>
-			<figure>
-				<img src="assets/images/restaurant-sushisen-londres.png" alt="Restaurant Sushisen - Londres">
-				<figcaption>Restaurant Sushisen - Londres</figcaption>
-			</figure>
-			<figure>
-				<img src="assets/images/la-balisiere.png" alt="Villa “La Balisiere” - Port Louis">
-				<figcaption>Villa “La Balisiere” - Port Louis</figcaption>
-			</figure>
-			<figure>
-				<img src="assets/images/structures-thermopolis.png" alt="Structures Thermopolis">
-				<figcaption>Structures Thermopolis</figcaption>
-			</figure>
-			<figure>
-				<img src="assets/images/appartement-paris-x.png" alt="Appartement Paris X">
-				<figcaption>Appartement Paris X</figcaption>
-			</figure>
-			<figure>
-				<img src="assets/images/le-coteau-cassis.png" alt="Pavillon “Le coteau” - Cassis">
-				<figcaption>Pavillon “Le coteau” - Cassis</figcaption>
-			</figure>
-			<figure>
-				<img src="assets/images/villa-ferneze.png" alt="Villa Ferneze - Isola d’Elba">
-				<figcaption>Villa Ferneze - Isola d’Elba</figcaption>
-			</figure>
-			<figure>
-				<img src="assets/images/appartement-paris-xviii.png" alt="Appartement Paris XVIII">
-				<figcaption>Appartement Paris XVIII</figcaption>
-			</figure>
-			<figure>
-				<img src="assets/images/bar-lullaby-paris.png" alt="Bar “Lullaby” - Paris">
-				<figcaption>Bar “Lullaby” - Paris</figcaption>
-			</figure>
-			<figure>
-				<img src="assets/images/hotel-first-arte-new-delhi.png" alt="Hotel First Arte - New Delhi">
-				<figcaption>Hotel First Arte - New Delhi</figcaption>
-			</figure> -->
 		</div>
 	</section>
 	<section id="contact">
@@ -112,5 +90,54 @@
 </footer>
 
 </body>
+<div class="modal-container" id="modal-container">
+	<div class="modal-content">
+		<button id="close" class="close-modal-trigger">X</button>
+		
+		<div class="modal" id="modal">
+		
+			<div id="content-one">
+				<p>Galerie photo</p>
+				<div class="m-gallery">
+	
+				</div>
+	
+				<hr>
+	
+				<button id="addModal" class="addpic">Ajouter une photo</button>
+				<button class="suppgal">Supprimer la galerie</button>
+			</div>
+			<div id="content-two" class="modal-add">
+				<button id="return"><img src="assets/icons/arrow-left-long-solid.svg" alt=""></button>
+				<p>Ajout photo</p>
+				<div class="add-photo">
+					<div class="add-photo-flex">
+						<div id="preview">
+							<i class="fa-sharp fa-regular fa-image" style="color: #B9C5CC;font-size: 56px;margin-top: 20px;"></i>
+						</div>
+						
+						<label id="label-add" class="pic-file-label" for="pic-file">+ Ajouter photo</label>
+						<p id="label-add-p">jpg, png : 4mo max</p>
+						<input id="pic-file" name="pic-file" type="file" accept=".png, .jpg,">
+					</div>
+				</div>
+				<form class="" action="#" id="formu">
+					
+					<label for="title">Titre</label>
+					<input type="text"  id="title">
+					<label for="dropdown">Catégorie</label>
+					<select name="dropdown" id="dropdown">
+						
+					</select>
+				</form>
+				<button type="submit" disabled id="validateworkadd" class="validate">Valider</button>
+					
+		</div> 
+		</div>
+		
+	</div>
+	
+</div>
 <script type="module" src="script.js"></script>
+<script type="module" src="login.js"></script>
 </html>
