@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+    <html lang="fr">
+        <head>
+            <meta charset="UTF-8">
+            <title>Sophie Bluel - Architecte d'intérieur</title>
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <link rel="preconnect" href="https://fonts.googleapis.com">
+            <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+            <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap" rel="stylesheet">
+            <meta name="description" content="">
+            <link rel="stylesheet" href="./assets/style.css">
+        </head>
+<body>
+<header>
+    <div class="header">
+		<h1>Sophie Bluel <span>Architecte d'inteérieur</span></h1>
+	<nav>
+		<ul>
+			<li>projets</li>
+			<li>contact</li>
+			<li id="logout"> <a href="http://127.0.0.1:5500/FrontEnd/connexion.html" target="_blank" ></a>login </li>
+			<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
+		</ul>
+	</nav>
+	</div>
+</header>
+        <section id="login-page">
+            <form class="form" action="" id="loginForm">
+                <h1>Log In</h1>
+                <div class="userpass-label">
+                    <label for="username">Email</label>
+                    <input type="email" name="email" id="username" class="form-control">
+                </div>
+                <div class="userpass-label">
+                    <label for="password">Mot de passe</label>
+                    <input type="password" id="password" class="form-control">
+                </div>
+                <button class="sub-button" type="submit">Se connnecter</button>
+                <p id="error-message"></p>
+                <a href="http://" target="_blank" rel="noopener noreferrer">Mot de passe oublié</a>
+            </form>
+        </section>
+        
+        
+        
+    </div>
+</body>
+
+<script type="module" src="login.js"></script>
+</html>
