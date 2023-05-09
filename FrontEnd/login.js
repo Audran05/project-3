@@ -1,3 +1,5 @@
+// Après avoir fait la page de login en HTML CSS, on récupère le formulaire de connexion
+
 const form = {
     email: document.getElementById("emailu"),
     password: document.getElementById("passu"),
@@ -5,52 +7,9 @@ const form = {
     errorMessage: document.getElementById('error-message'),
 }
 
-/* function submitUser() {
-    const formUser = document.getElementById('myform');
-    formUser.addEventListener("submit", async function(event){
-        event.preventDefault();
-        const form = {
-            email: document.getElementById("emailu"),
-            password: document.getElementById("passu"),
-            submit: document.getElementById("send"),
-            errorMessage: document.getElementById('error-message'),
-        }
-        const logIn = {
-            email : form.email.value,
-            password  : form.password.value
-
-        };
-        console.log("form", form)
-        const chargeUtile = JSON.stringify(logIn);
-        fetch("http://localhost:5678/api/users/login"), {
-            method: "POST",
-            headers:{"Content-Type": "application/json"  },
-            body: chargeUtile
-        }
-        
-    })
-    .then((response) => response.json())
-    .then((data)=>{
-        let token = data.token;
-        let isLoggedIn = true;
-        if (data.message ==='user not found'){
-            form.errorMessage.innerHTML ='Erreur dans l’identifiant ou le mot de passe';
-        }
-        else{
-            sessionStorage.setItem("isLoggedIn", isLoggedIn);
-            sessionStorage.setItem("token", token);
-            
-
-        }
-        console.log(token, isLoggedIn);
-    })
-    .catch((err) => {
-        console.log(err);
-    });
-    
-}  */
-
 let loginForm = document.getElementById("loginForm");
+
+// On ajoute l'évènement submit où l'on récupère les informations de connexion
 
 loginForm.addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -65,7 +24,9 @@ loginForm.addEventListener("submit", async (e) => {
         password  : password.value
 
     };
-    
+
+// on met ces informations dans une charge utile que l'on va envoyer à l'api avec Fetch
+
     const chargeUtile = JSON.stringify(logIn);
     console.log(chargeUtile)
     const response = await fetch("http://localhost:5678/api/users/login", {
@@ -81,6 +42,9 @@ loginForm.addEventListener("submit", async (e) => {
         referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
         body: chargeUtile, // body data type must match "Content-Type" header
     })
+    
+// L'api va nous répondre si l'utilisateur existe en nous donnant le token d'authentification 
+
     .then((response) => response.json())
     .then((data)=>{
         let token = data.token;
@@ -90,7 +54,7 @@ loginForm.addEventListener("submit", async (e) => {
         }
         else{
             
-            sessionStorage.setItem("isLoggedIn", isLoggedIn);
+            sessionStorage.setItem("isLoggedIn", isLoggedIn); // on stock le token dans le session storage
             sessionStorage.setItem("token", token);
             /* location.assign("index.html"); */
             location.assign("index.html")

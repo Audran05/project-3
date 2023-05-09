@@ -1,4 +1,4 @@
-
+// On récupère les traveaux grâce à la fonction fetch
 
 
 async function getWorks () { 
@@ -7,7 +7,7 @@ async function getWorks () {
     return Promise.resolve(works)
 };
 
-
+// On viens les mettre dans une constante et on les affiche avec une fonction
 
 const sophieWorks = await getWorks();
 console.log(sophieWorks);
@@ -38,6 +38,8 @@ function genererSophieWorks(sophieWorks){
 }
 genererSophieWorks(sophieWorks);
 
+// On viens faire la mm chose avec les catégories
+
 async function getCategories () { 
     const reponse = await fetch ("http://localhost:5678/api/categories");
     const categories = await reponse.json();
@@ -49,33 +51,87 @@ categories.forEach(cat =>{
     console.log(cat)
 })
 
-
-
-
-
+// dans une boucle on utilise les catégories pour créer les boutons de filtres
 
 for (let i = 0; i< categories.length; i++){
     const cat = categories[i];
-    const filtres = document.querySelector('.filters');
+    const filtres = document.querySelector(".filters");
     const allButton = document.querySelector('.all');
-    let buttonFiltrer = document.createElement("button");
-    buttonFiltrer.innerText = categories[i].name;
-    buttonFiltrer.classList.add('green')
-    filtres.appendChild(buttonFiltrer);
     
-    buttonFiltrer.addEventListener("click",function(){
-        
-        buttonFiltrer.classList.toggle('white')
-        const sophieWorksFiltrer = sophieWorks.filter(sophieWork=>sophieWork.categoryId === cat.id)
-        document.querySelector(".gallery").innerHTML = '';
-        genererSophieWorks(sophieWorksFiltrer);
-    })
-    allButton.addEventListener('click',function(){
-        document.querySelector(".gallery").innerHTML = '';
-        genererSophieWorks(sophieWorks);
-    })
-}
+    const buttonFiltrer = document.createElement("button");
+    buttonFiltrer.innerText = categories[i].name;
+    buttonFiltrer.classList.add('white');
+    
+    filtres.appendChild(buttonFiltrer); 
 
+
+    buttonFiltrer.addEventListener("click",function(){
+            
+            const sophieWorksFiltrer = sophieWorks.filter(sophieWork=>sophieWork.categoryId === cat.id)
+            document.querySelector(".gallery").innerHTML = '';
+            genererSophieWorks(sophieWorksFiltrer);
+            
+        }); 
+        allButton.addEventListener('click',function(){
+            
+            document.querySelector(".gallery").innerHTML = '';
+            genererSophieWorks(sophieWorks);
+        }); 
+        buttonFiltrer.addEventListener("click", function(button) {
+            if (button.target.classList.contains("selected")){
+                return;
+            }
+            if (document.querySelector('button.selected') !== null) {
+              document.querySelector('button.selected').classList.remove('selected');
+            }
+            button.target.classList.add("selected");
+          });
+          allButton.addEventListener("click", function(button) {
+            if (button.target.classList.contains("selected")) {
+              return;
+            }
+            if (document.querySelector("button.selected") !== null) {
+              document.querySelector("button.selected").classList.remove("selected");
+            }
+            button.target.classList.add("selected");
+          });
+};
+
+
+     /* buttons.forEach(button =>{
+        button.addEventListener("click", function(){
+            buttons.forEach(button => {
+                button.classList.remove("selected");
+            });
+            this.classList.add("selected");
+            
+            const filteredSophieWorks = sophieWorks.filter(sophieWork=>sophieWork.categoryId === cat.id);
+            
+            document.querySelector(".gallery").innerHTML = '';
+            genererSophieWorks(filteredSophieWorks);
+            console.log(cat);
+        });
+        allButton.addEventListener('click',function(){
+            console.log(cat);
+            document.querySelector(".gallery").innerHTML = '';
+            genererSophieWorks(sophieWorks);
+        });
+        
+    });  */
+  
+
+
+/* buttonFiltrer.addEventListener("click", function(button) {
+    if (button.target.classList.contains("selected")){
+        return;
+    }
+    if (document.querySelector('.green selected') !== null){
+        document.querySelector('.green selected').classList.remove('selected');
+    }
+    button.target.classList.add("selected");
+});
+ */
+// Maintenant que l'on est connecté et stocké le token, on reviens sur la page du site mais avec des boutons pour éditer le site
 
 const divForm = document.querySelector('form');
 const logForm = document.getElementById("logform");
@@ -84,22 +140,27 @@ const logForm = document.getElementById("logform");
 const logout = document.getElementById('logout');
 const logNav = document.getElementById('login-nav');
 const pNav = document.getElementById('login-p');
+const iNav = document.getElementById('login-i');
+const iProject = document.getElementById('iproject');
 const paraNav = document.getElementById('myBtn');
 const authentificationState = sessionStorage.getItem("token");
 console.log(authentificationState);
 if(authentificationState && authentificationState.length > 0){
-    
+    iProject.style.display = 'flex'
     logout.innerText = "logout"
     logNav.style.display = 'flex'
     pNav.style.display = 'flex'
     paraNav.style.display = 'flex'
+    iNav.style.display = 'flex'
 }else{
-    
+    iProject.style.display = 'none'
+    iNav.style.display = 'none'
     logNav.style.display = 'none'
     pNav.style.display = 'none'
     paraNav.style.display = 'none'
 };
 
+// On a créer une modale qui s'ouvre lorsque l'on souhaite modifier la liste des projets en HTML
 
 const modalContainer = document.getElementById('modal-container');
 const modalButton = document.getElementById("myBtn");
@@ -111,6 +172,8 @@ modalButton.addEventListener('click', function(){
 
 const modalWorks = await getWorks();
 console.log(modalWorks);
+
+// On affiche dans la modale les traveaux de la même manière que l'on avait fait pour la page du site
 
 function generateWorksModal(){
     modalWorks.forEach(modalWork =>{
@@ -132,6 +195,8 @@ function generateWorksModal(){
         modalWorkFigure.appendChild(deleteWorkButton);
         modalWorkFigure.appendChild(modalWorkEdit);
        
+// on a mis un bouton qui permet de suprrimer un travail de la gallerie avec encore la fonction fetch (delete cette fois ci)
+
         deleteWorkButton.addEventListener("click", async function(){
             const deleteWork = await fetch(`http://localhost:5678/api/works/${modalWork.id}`, {
                 method: "DELETE",
@@ -151,6 +216,8 @@ function generateWorksModal(){
 generateWorksModal(modalWorks);
 
 
+//ici on peut fermer la modale et revenir à la modale précédante
+
 const closeBtn = document.querySelector('.close-modal-trigger');
 closeBtn.addEventListener('click',function(){
     modalContainer.style.display = 'none'
@@ -167,7 +234,7 @@ window.addEventListener("click", function(event) {
   });
 
 
-
+// ici en appyant sur le bouton "ajouter une photo" on arrive sur la modale d'ajout de travail
 
 const modalone = document.getElementById('content-one');
 const modalAdd = document.getElementById('content-two');
@@ -187,7 +254,7 @@ input.style.opacity = 0;
   //pubication de nouveau projets
 
   const formulaire = document.getElementById('pic-file');
-  
+  // On appele la fonction display image dans le formulaire quand on choisi une image dans l'input de type file
   formulaire.addEventListener("change", function(){
     const fileExtension = /\.(jpg|png)$/i;
     if(this.files.length === 0 || !fileExtension.test(this.files[0].name)){
@@ -202,6 +269,8 @@ input.style.opacity = 0;
     fileReader.addEventListener("load", (e) => displayImage(e, file));
 
 });
+
+// ici la fonction display image qui permet de charger une preview de l'image
 
 function displayImage(e, file){
     const figureElement = document.createElement("figure");
@@ -223,10 +292,14 @@ function displayImage(e, file){
     labelAddP.style.display = "none"
 };
 
+// maintenant on intègre les catégorie dans le formulaire via le select
+
 const categorySelect = document.getElementById("dropdown");
 const emptyOptionSelectCategory = document.createElement("option");
 emptyOptionSelectCategory.style.display = "none";
 categorySelect.appendChild(emptyOptionSelectCategory);
+
+// la boucle permet de générer les noms de catégories dans les options dans le select
 
 for(let i=0; i < categories.length; i++){
         const optionSelectCategory = document.createElement("option");
@@ -235,6 +308,7 @@ for(let i=0; i < categories.length; i++){
         categorySelect.appendChild(optionSelectCategory);
 };
 
+// Pour la publication, on prends toutes nos données que l'on stock dans la fonction formData 
 
 const newWorkPhoto = document.querySelector("#pic-file");
 const newWorkTitle = document.querySelector("#title");
@@ -247,7 +321,7 @@ async function addWork(){
     let formData = new FormData();
     formData.append("image", newWorkPhotoFile, newWorkPhotoFile.name);
     formData.append("title", newWorkTitleValue);
-    formData.append("category", newWorkCategoryValue);
+    formData.append("category", newWorkCategoryValue); // Après ca, on appel un fetch (POST) pour envoyer un nouveau travail à l'api
     return fetch('http://localhost:5678/api/works', {
     method: 'POST',
     headers: {
@@ -257,9 +331,11 @@ async function addWork(){
     }).then(response => response.json());
     
 };
+
+// Pour envoyer ce nouveau travail, il faut donc un bouton submit valide lorsque tous les champs sont remplis sinon le bouton est désactiver
 const submitFormAddWork = document.getElementById('validateworkadd');
 newWorkPhoto.addEventListener("input" , ()=>{
-    if (newWorkPhoto.value.length > 0){
+    if (newWorkPhoto.value.length > 0 || newWorkTitle.value.length > 0 || newWorkCategory.value.length > 0){
         submitFormAddWork.disabled = false;
         submitFormAddWork.style.backgroundColor = "#1D6154";
         
@@ -267,7 +343,9 @@ newWorkPhoto.addEventListener("input" , ()=>{
         submitFormAddWork.disabled = true;
     }
     
-})
+});
+
+// Quand on click sur le bouton submit, on envoie donc le nouveau travail avec ses données, et on viens refresh les traveaux en rajoutant le nouveau rajouté
 submitFormAddWork.addEventListener("click", async function(event){
     console.log("sophieWorks")
     event.preventDefault();

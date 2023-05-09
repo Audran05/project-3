@@ -90,6 +90,10 @@ nav ul {
 	list-style-type: none;
 
 }
+nav a {
+	text-decoration: none;
+	color: #000000;
+}
 nav li {
 	padding: 0 10px;
 	font-size: 1.2em;
@@ -184,7 +188,7 @@ margin: auto;
 	margin-bottom: 50px;
 	
 }
-.green{
+.white{
 	border: 1px solid #1D6154;
 	border-radius : 60px;
 	color: #1D6154;
@@ -198,7 +202,7 @@ margin: auto;
 	padding: 9px 30px;
 	margin-right: 10px;
 }
-.white{
+.selected{
 	border: 1px solid #1D6154;
 	border-radius : 60px;
 	color:  #FFFFFF;
@@ -212,20 +216,7 @@ margin: auto;
 	padding: 9px 30px;
 	margin-right: 10px;
 }
-.all{
-	border: 1px solid #1D6154;
-	border-radius : 60px;
-	color: #1D6154;
-	background: #fff;
-	font-family: 'Syne';
-	font-style: normal;
-	font-weight: 700;
-	font-size: 16px;
-	line-height: 19px;
-	text-align: center;
-	padding: 9px 30px;
-	margin-right: 10px;
-}	
+
 
 footer nav ul {
 	display: flex;
